@@ -1,5 +1,5 @@
 import { db } from "../firebase";
-import { getDocs, collection } from "firebase/firestore";
+import { getDocs, collection, onSnapshot } from "firebase/firestore";
 import { useEffect, useState } from "react"
 
 function DisplayBooks() {
@@ -9,18 +9,19 @@ function DisplayBooks() {
   useEffect(()=>{
     const booksRef = collection(db, "books");
 
-    const getBooks = getDocs(booksRef).then((snapshot)=>{
+    const getBooks = onSnapshot(booksRef, (snapshot)=>{
       let result = [];
       snapshot.docs.map((doc) => {
         result.push({...doc.data(), id: doc.id});
       })
       setBooks(result);
-    })
+    });
+    return () => getBooks();
   },[])
   return (
-    <div>
+    <div className="flex space-x-3">
       {books && books.map(({id, img, title, price})=>(
-        <div key={id} className="">
+        <div key={id} className="p-2 shadow-md border">
           <div className="relative">
             <div><img src={img} alt="/" /></div>
             <div><h2>{title}</h2></div>
