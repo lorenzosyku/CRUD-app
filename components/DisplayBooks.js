@@ -24,7 +24,7 @@ function DisplayBooks() {
           <div className="relative">
             <div><img src={img} alt="/" /></div>
             <div><h2>{title}</h2></div>
-            <div><h3>{price}</h3></div>
+            <div><h3>${price}</h3></div>
           </div>
           
         </div>
