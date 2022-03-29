@@ -21,32 +21,32 @@ function AddBooks() {
 
   return (
     <div className="bg-slate-300">
-      <div className="relative space-y-3">
+      <div className="relative space-y-3 w-3/4">
         <form type="submit">
-          <div className="p-5">
+          <div className="p-5 flex flex-grow">
             <input
               value={newTitle}
               onChange={(e) => setNewTitle(e.target.value)}
               placeholder="title"
-              className="p-2 text-sm"
+              className="p-2 text-sm flex-grow"
               type="text"
             />
           </div>
-          <div className="p-5">
+          <div className="p-5 flex flex-grow">
             <input
               value={newPrice}
               onChange={(e) => setNewPrice(e.target.value)}
               placeholder="price"
-              className="p-2 text-sm"
+              className="p-2 text-sm flex-grow"
               type="number"
             />
           </div>
-          <div className="p-5">
+          <div className="p-5 flex flex-grow">
             <input
               value={newImage}
               onChange={(e) => setNewImage(e.target.value)}
               placeholder="image url"
-              className="p-2 text-sm"
+              className="p-2 text-sm flex-grow"
               type="text"
             />
           </div>

@@ -19,8 +19,14 @@ function DisplayBooks() {
     });
     return () => getBooks();
   }, []);
+
+  const deleteBook = async (id) => {
+    const bookDoc = doc(db, "books", id);
+    await deleteDoc(bookDoc);
+  };
+  
   return (
-    <div className="p-5">
+    <div className="p-7">
       <div className="flex place-items-center justify-between py-5">
         <h2 className="text-xl font-bold underline-offset-4 decoration-1 text-gray-900">
           Our Latest Additions
