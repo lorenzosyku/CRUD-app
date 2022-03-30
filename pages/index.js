@@ -15,7 +15,6 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase";
 import { useEffect, useState } from "react";
-import updatingBookContext from "../helpers/context";
 
 export default function Home() {
   const [item, setItem] = useState(null);
@@ -56,8 +55,7 @@ export default function Home() {
   };
 
   return (
-    <div
-    >
+    <div>
       <Head>
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
@@ -65,7 +63,12 @@ export default function Home() {
       <Navbar />
       <Header />
       <DisplayBooks books={books} deleteBook={deleteBook} />
-      <AddBooks addBook={addBook} />
+      <AddBooks
+        addBook={addBook}
+        setNewTitle={setNewTitle}
+        setNewPrice={setNewPrice}
+        setNewImage={setNewImage}
+      />
       <Footer />
     </div>
   );

@@ -1,29 +1,6 @@
-import { db } from "../firebase";
-import { getDocs, collection, onSnapshot } from "firebase/firestore";
-import { useEffect, useState } from "react";
 import { RefreshIcon, XCircleIcon } from "@heroicons/react/outline";
 
 function DisplayBooks({books, deleteBook, item}) {
-  /*const [item, setItem] = useState(null);
-  const [books, setBooks] = useState([]);
-
-  useEffect(() => {
-    const booksRef = collection(db, "books");
-
-    const getBooks = onSnapshot(booksRef, (snapshot) => {
-      let result = [];
-      snapshot.docs.map((doc) => {
-        result.push({ ...doc.data(), id: doc.id });
-      });
-      setBooks(result);
-    });
-    return () => getBooks();
-  }, []);
-
-  const deleteBook = async (id) => {
-    const bookDoc = doc(db, "books", id);
-    await deleteDoc(bookDoc);
-  };*/
   
   return (
     <div className="p-7">

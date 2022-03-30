@@ -1,24 +1,12 @@
-import { useState } from "react";
-import { addDoc, collection } from "firebase/firestore";
-import { db } from "../firebase";
-
-function AddBooks() {
-  const [newTitle, setNewTitle] = useState("");
-  const [newPrice, setNewPrice] = useState(0);
-  const [newImage, setNewImage] = useState("");
-
-  const addBook = async (e) => {
-    e.preventDefault();
-    await addDoc(collection(db, "books"), {
-      title: newTitle,
-      price: Number(newPrice),
-      img: newImage,
-    });
-    setNewTitle("");
-    setNewPrice(0);
-    setNewImage("");
-  };
-
+function AddBooks({
+  addBook,
+  setNewPrice,
+  setNewTitle,
+  setNewImage,
+  newTitle,
+  newPrice,
+  newImage,
+}) {
   return (
     <div className="bg-slate-300">
       <div className="relative space-y-3 w-3/4">
