@@ -98,6 +98,7 @@ export default function Home() {
           newPrice={newPrice}
           newImage={newImage}
           isUpdating={isUpdating}
+          setIsUpdating={setIsUpdating}
         />
       ) : null}
       <DisplayBooks
