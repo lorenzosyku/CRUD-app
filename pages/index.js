@@ -4,9 +4,9 @@ import DisplayBooks from "../components/DisplayBooks";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import Navbar from "../components/Navbar";
+import UpdateForm from "../components/UpdateForm";
 import {
   collection,
-  getDocs,
   onSnapshot,
   addDoc,
   doc,
@@ -19,6 +19,9 @@ import { useEffect, useState } from "react";
 export default function Home() {
   const [item, setItem] = useState(null);
   const [books, setBooks] = useState([]);
+
+  const [bookId, setBookId] = useState(null);
+  const [isUpdating, setIsUpdating] = useState(false);
 
   useEffect(() => {
     const booksRef = collection(db, "books");
@@ -54,6 +57,28 @@ export default function Home() {
     setNewImage("");
   };
 
+  useEffect(() => {
+    if (bookId != null) setIsUpdating(true);
+  }, [bookId]);
+
+  const updateBook = async () => {
+    const bookDoc = doc(db, "books", bookId);
+    await updateDoc(bookDoc, {
+      title: newTitle,
+      price: Number(newPrice),
+      img: newImage,
+    });
+    setBookId(null);
+    setNewTitle("");
+    setNewPrice(0);
+    setNewImage("");
+    setIsUpdating(false);
+  };
+
+  const resetBookId = () => {
+    setBookId(null);
+  };
+
   return (
     <div>
       <Head>
@@ -62,7 +87,24 @@ export default function Home() {
       </Head>
       <Navbar />
       <Header />
-      <DisplayBooks books={books} deleteBook={deleteBook} />
+      {isUpdating ? (
+        <UpdateForm
+          updateBook={updateBook}
+          resetBookId={resetBookId}
+          setNewTitle={setNewTitle}
+          setNewPrice={setNewPrice}
+          setNewImage={setNewImage}
+          newTitle={newTitle}
+          newPrice={newPrice}
+          newImage={newImage}
+          isUpdating={isUpdating}
+        />
+      ) : null}
+      <DisplayBooks
+        books={books}
+        deleteBook={deleteBook}
+        setBookId={setBookId}
+      />
       <AddBooks
         addBook={addBook}
         setNewTitle={setNewTitle}

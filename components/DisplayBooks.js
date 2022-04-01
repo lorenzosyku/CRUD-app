@@ -1,6 +1,6 @@
 import { RefreshIcon, XCircleIcon } from "@heroicons/react/outline";
 
-function DisplayBooks({books, deleteBook, item}) {
+function DisplayBooks({books, deleteBook, item, setBookId}) {
   
   return (
     <div className="p-7">

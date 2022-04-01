@@ -1,8 +1,8 @@
-import { Fragment, useContext } from "react";
+import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { RefreshIcon } from "@heroicons/react/outline";
 
-function UpdateForm() {
+function UpdateForm({updateBook, resetBookId, isUpdating, newImage, newPrice, newTitle, setNewImage, setNewPrice, setNewTitle}) {
   return (
     <Transition.Root show={isUpdating} as={Fragment}>
       {/* NOTE: isUPDATING IS REQUIRED TO KNOW WHEN THE MODAL SHOULD OPEN */}
