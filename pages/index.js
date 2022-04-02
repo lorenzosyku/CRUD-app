@@ -15,6 +15,10 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase";
 import { useEffect, useState } from "react";
+import { loadStripe } from "@stripe/stripe-js";
+import axios from "axios";
+
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
 
 export default function Home() {
   const [item, setItem] = useState(null);
@@ -79,6 +83,33 @@ export default function Home() {
     setBookId(null);
   };
 
+  console.log(item)
+
+  const createCheckoutSession = async () => {
+    // WAIT FOR STRIPE PROMISE TO LOAD
+    const stripe = await stripePromise;
+
+    //CREATE THE CHECKOUT SESSION & SET UP BACK END
+    const checkoutSession = await axios.post("/api/checkout_session", {
+      item,
+    });
+
+    // GET THE CHECKOUT SESSION ID BACK FROM ENDPOINT AND REDIRECT USER TO STRIPE CHECKOUT
+    const result = await stripe.redirectToCheckout({
+      // SESSION ID IS TAKEN FROM CHECKOUT SESSION
+      sessionId: checkoutSession.data.id,
+    });
+
+    // IF THERE IS AN ERROR WITH REDIRECTING USER TO STRIPE SHOW IT
+    if (result) alert(result.error.message);
+  };
+
+  useEffect(() => {
+    if (item != null) {
+      createCheckoutSession();
+    }
+  }, [item]);
+
   return (
     <div>
       <Head>
@@ -105,6 +136,8 @@ export default function Home() {
         books={books}
         deleteBook={deleteBook}
         setBookId={setBookId}
+        setItem={setItem}
+        item={item}
       />
       <AddBooks
         addBook={addBook}

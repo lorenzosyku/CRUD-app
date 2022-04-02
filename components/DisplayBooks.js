@@ -1,7 +1,6 @@
 import { RefreshIcon, XCircleIcon } from "@heroicons/react/outline";
 
-function DisplayBooks({books, deleteBook, item, setBookId}) {
-  
+function DisplayBooks({ books, deleteBook, item, setBookId, setItem }) {
   return (
     <div className="p-7">
       <div className="flex place-items-center justify-between py-5">
@@ -31,42 +30,51 @@ function DisplayBooks({books, deleteBook, item, setBookId}) {
                   <h3>${price}</h3>
                 </div>
               </div>
+              <button
+                onClick={() => setItem([{ title, price, img }])}
+                disabled={item}
+                className={`mt-6 ${item ? "cursor-not-allowed" : ""} w-full`}
+              >
+                <span
+                  href="/"
+                  className={`relative flex ${
+                    item ? "bg-gray-200" : "bg-gray-100 hover:bg-gray-200"
+                  } border border-transparent rounded-md py-2 px-8 h-full items-center justify-center text-sm font-medium text-gray-900 `}
+                >
+                  {!item ? "Buy now" : "Loading..."}
+                  <span className="sr-only">, {title}</span>
+                </span>
+              </button>
               <div className="flex w-1/2 space-x-1">
-                      <button
-                        disabled={item}
-                        onClick={() => deleteBook(id)}
-                        className={`mt-6 ${
-                          item ? "cursor-not-allowed" : ""
-                        } w-1/2`}
-                      >
-                        <span
-                          href="/"
-                          className={`relative flex ${
-                            item ? "bg-red-400" : "bg-red-500 hover:bg-red-400"
-                          } border border-transparent rounded-md py-2  items-center justify-center text-sm font-medium text-white`}
-                        >
-                          <XCircleIcon className="h-6 w-6" />
-                        </span>
-                      </button>
-                      <button
-                        disabled={item}
-                        onClick={() => setBookId(id)}
-                        className={`mt-6 ${
-                          item ? "cursor-not-allowed" : ""
-                        } w-1/2`}
-                      >
-                        <span
-                          href="/"
-                          className={`relative flex ${
-                            item
-                              ? "bg-green-400"
-                              : "bg-green-500 hover:bg-green-400"
-                          } border border-transparent rounded-md py-2 items-center justify-center text-sm font-medium text-white`}
-                        >
-                          <RefreshIcon className="h-6 w-6" />
-                        </span>
-                      </button>
-                    </div>
+                <button
+                  disabled={item}
+                  onClick={() => deleteBook(id)}
+                  className={`mt-6 ${item ? "cursor-not-allowed" : ""} w-1/2`}
+                >
+                  <span
+                    href="/"
+                    className={`relative flex ${
+                      item ? "bg-red-400" : "bg-red-500 hover:bg-red-400"
+                    } border border-transparent rounded-md py-2  items-center justify-center text-sm font-medium text-white`}
+                  >
+                    <XCircleIcon className="h-6 w-6" />
+                  </span>
+                </button>
+                <button
+                  disabled={item}
+                  onClick={() => setBookId(id)}
+                  className={`mt-6 ${item ? "cursor-not-allowed" : ""} w-1/2`}
+                >
+                  <span
+                    href="/"
+                    className={`relative flex ${
+                      item ? "bg-green-400" : "bg-green-500 hover:bg-green-400"
+                    } border border-transparent rounded-md py-2 items-center justify-center text-sm font-medium text-white`}
+                  >
+                    <RefreshIcon className="h-6 w-6" />
+                  </span>
+                </button>
+              </div>
             </div>
           ))}
       </div>
